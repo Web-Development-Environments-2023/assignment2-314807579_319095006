@@ -8,15 +8,15 @@
         <style type = "text/css">
          canvas{ border: 1px solid black; }
         </style>
-       
         <script src="chicken.js"></script>
 	</head>
 	<body>
-        <canvas id = "theCanvas" width = "512" height = "480" style="display: none;"></canvas> 
+        <div ALIGN="center">
+        <canvas id = "theCanvas" width = "1200" height = "400" style="display: none;" ALIGN="center"></canvas> 
+        </div>
         <div id="menu">
             <nav>
                 <ul>
-                    
                     <li onclick="welcome()">Home</li>
                     <li onclick="login()">Login</li>
                     <li onclick="about()">About</li>
@@ -29,10 +29,16 @@
                     document.getElementById("welcome page").style.display = "block";
                     document.getElementById("login page").style.display = "none";
                     document.getElementById("sign up page").style.display = "none";
+                    document.getElementById("game page").style.display = "none";
                     document.getElementById("theCanvas").style.display = "none";
+                    document.getElementById("about").style.display = "none";
+
+                }
+                function about(){
+                    document.getElementById("about").style.display = "block";
+
                 }
             </script>
-
         </div>
         <content> 
             <div id="welcome page" ALIGN="center">
@@ -40,31 +46,37 @@
                 <h4 style="align-items: center;">Or Fuchs 319095006, Amit Vitkovsky 314807579</h4>
                 <button id="Login " onclick=login() >Login</button>
                 <button id="sign up" onclick="signup()">Sign Up</button>
-                <h1>
-                <image src="BigChickenCIU.webp" alt="chicken" width="200" height="200">
-                </h1>
+                <h1><image src="BigChickenCIU.webp" alt="chicken" width="200" height="200"></h1>
                 <script>
                     function login(){
                         document.getElementById("welcome page").style.display = "none";
                         document.getElementById("sign up page").style.display = "none";
+                        document.getElementById("game page").style.display = "none";
+                        document.getElementById("theCanvas").style.display = "none";
                         document.getElementById("login page").style.display = "block";
+                        document.getElementById("about").style.display = "none";
+
                     }
                     function signup(){
                         document.getElementById("welcome page").style.display = "none";
+                        document.getElementById("game page").style.display = "none";
+                        document.getElementById("theCanvas").style.display = "none";
                         document.getElementById("login page").style.display = "none";
                         document.getElementById("sign up page").style.display = "block";
+                        document.getElementById("about").style.display = "none";
+
                     }
                 </script>
-
             </div>
-            <div id="login page" style="display: none;" onsubmit="return valid()">
+
+            <div id="login page" style="display: none;" >
                 <h1>Login</h1>
-                <form action="login.php" method="post">
+                <form name="loginForm" onsubmit="return valid(event)">
                     <label for="in_username">Username:</label>
                     <input type="text" id="in_username" name="in_username" required><br><br>
                     <label for="in_password">Password:</label>
                     <input type="password" id="in_password" name="in_password" required><br><br>
-                    <input type="submit" value="Submit">
+                    <input type="submit" value="Submit" > 
                 </form>
                 <button id="back" onclick="back()">Back</button>
                 <script>
@@ -72,12 +84,31 @@
                         document.getElementById("login page").style.display = "none";
                         document.getElementById("welcome page").style.display = "block";
                     }
+            
+                    function valid(event)
+                    {
+                        event.preventDefault();
+                        var username = document.getElementById("in_username").value;
+                        var password = document.getElementById("in_password").value;
+                        for (var i = 0; i < validCredentials.length; i++) {
+                            if (username === validCredentials[i].username && password === validCredentials[i].password) {
+                                document.getElementById("login page").style.display="none";
+                                document.getElementById("game page").style.display="block";
+                                document.getElementById("theCanvas").style.display="block";
+                                document.getElementById("welcome page").style.display="none";
+                                document.getElementById("about").style.display = "none";
+                                return;
+                            }
+                        }
+                        alert("Invalid username or password");
+                        return;
+                    }
                 </script>
             </div>
 
             <div id="sign up page" style="display:none;">
                 <h1>Sign Up</h1>
-                <form name="myForm" onsubmit="return check()">
+                <form name="myForm" onsubmit="return check(event)">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required><br><br>
                     <label for="password">Password:</label>
@@ -102,22 +133,21 @@
                     }
                 </script>
             </div>
+
             <div id="game page" style="display: none;">
-                <h1>Game</h1>
-                <canvas id="theCanvas" width="800" height="600" style="border:1px solid #000000;">
-                    Your browser does not support the HTML5 canvas tag.
-                </canvas>
-                <button id="back" onclick="backGame()">Back</button>
                 <script>
-                    function backGame(){
-                        document.getElementById("game page").style.display = "none";
-                        document.getElementById("welcome page").style.display = "block";
-                    }
                 </script>
             </div>
+
+            <dialog id="about">
+                <div id="myAbout">About:</div>
+                <button id="exit-button" onclick="closeDialog()">Close</button>
+            </dialog>
         </content>
+
         <footer>
             <h5>Created by: Amit Vitkovsky, Or Fuchs</h5>
         </footer>
+
 	</body>
 </html>
