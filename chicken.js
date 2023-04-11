@@ -1,6 +1,15 @@
 var validCredentials = [
     {username: "p", password: "testuser"}
 ];
+var  intervalTimer ;
+var then;
+var ctx;
+var canvas;
+var spaceship;
+var background;
+var keysDown;
+const G_shoot_array = [];
+
 
 
 function closeDialog() {
@@ -13,9 +22,117 @@ if (event.key === "Escape") {
 }
 });
 
+function newGame(){
+    then = Date.now();
+    intervalTimer = setInterval(main,50)
+    intervalTimer =setInterval(G_shoot,150)
+}
+function G_shoot(){
+    var now = Date.now();
+    var delta = now - then;
+    update_Shoot_Position();
+    draw_all_shoots();
+    then=now
+}
+function main(){
+    var now = Date.now();
+    var delta = now - then;
+    update_spacesheep_Position();
+    draw()
+
+    then=now;
+}
+function draw_all_shoots(){
+    G_shoot_array.forEach(newshoot=>{
+        draw_shoot(newshoot)
+        newshoot.y-=newshoot.speed;
+    });
+    G_shoot_array.forEach((newshoot, index) => {
+        if(newshoot.y<5){
+            G_shoot_array.splice(index,1);
+        }
+    });
+}
+function draw_shoot(newshoot){
+    ctx.fillStyle = 'red';
+    ctx.beginPath();
+    ctx.arc(newshoot.x, newshoot.y, 5, 0, 2 * Math.PI);
+    ctx.fill();
+}
 
 
+function draw(){
+    ctx.drawImage(background,0,0,1100,500);
+    ctx.drawImage(spaceship_img,spaceship.x,spaceship.y,50,50)
+    
+   
+     
+}
+window.addEventListener("load", startgame,false);
+function startgame(){
+    
+    canvas = document.getElementById("theCanvas");
+    ctx = canvas.getContext("2d");
 
+
+    //backgruond
+    background = new Image();
+    background.src= "images/CI5Galaxy.webp";
+    background.onload = function(){
+        ctx.drawImage(background,0,0,1100,500);   
+    }
+    
+    //good spaceship
+    spaceship = new Object();
+    spaceship_img = new Image();
+    spaceship_img.src= "images/Spaceship4.png"
+    spaceship.x = canvas.width/2
+    spaceship.y = canvas.height -100;
+    spaceship.onload = function(){
+        ctx.drawImage(spaceship_img,spaceship.x,spaceship.y,50,50) 
+    }
+    //shoot of good spaceShip
+   
+    
+
+    
+
+    keysDown = {};
+	// Check for keys pressed where key represents the keycode captured
+	addEventListener("keydown", function (e) {keysDown[e.keyCode] = true;}, false);
+	addEventListener("keyup", function (e) {delete keysDown[e.keyCode];}, false);
+    newGame();
+}
+function update_Shoot_Position(modifier){
+    if (32 in keysDown){// player holding space}
+        console.log("space button pressed")
+        const newshoot = {
+        x : spaceship.x,
+        y : spaceship.y,
+        speed: 7
+        };
+        G_shoot_array.push(newshoot);
+        }
+}
+function update_spacesheep_Position(modifier){
+    if ((38 in keysDown) ){// player holding up
+        if(spaceship.y >= canvas.height - 0.4 * canvas.height)
+        spaceship.y -= 3;
+    }
+    if ((40 in keysDown) ){// player holding down
+        if(spaceship.y <= canvas.height-53 )
+        spaceship.y += 3;
+    }
+    if ((37 in keysDown) ){// player holding left
+        if(spaceship.x >= 8 )
+        spaceship.x -= 8;
+    }
+    if ((39 in keysDown) ){// player holding right
+        if(spaceship.x <= canvas.width - 58 )
+        spaceship.x += 8;
+    }
+    
+}
 
 function check(event){
     event.preventDefault();
