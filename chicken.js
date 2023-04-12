@@ -9,9 +9,13 @@ var spaceship;
 var background;
 var keysDown;
 const G_shoot_array = [];
-
-
-
+var can_shoot;
+var interval_counter=0;
+const bad_ships = [];
+var dir_right; 
+var bad_coolDown;
+const B_shoot_array = [];
+var bad;
 function closeDialog() {
     document.getElementById("about").style.display = "none";
   }
@@ -24,27 +28,53 @@ if (event.key === "Escape") {
 
 function newGame(){
     then = Date.now();
-    intervalTimer = setInterval(main,50)
-    intervalTimer =setInterval(G_shoot,150)
-}
-function G_shoot(){
-    var now = Date.now();
-    var delta = now - then;
-    update_Shoot_Position();
-    draw_all_shoots();
-    then=now
-}
+    intervalTimer = setInterval(main,30)
+    
+    }
+
+
 function main(){
     var now = Date.now();
     var delta = now - then;
-    update_spacesheep_Position();
+    update_spaceship_Position();
     draw()
-
+    draw_bad_ships();
+    update_Shoot_Position();
+    draw_all_shoots();
+    draw_bad_shoot();
+    draw_all_bad_shoots();
     then=now;
 }
+
+// draws the bad ships 4*5 
+function draw_bad_ships(){
+    bad_ship_img = new Image();
+    bad_ship_img.src = "images/bad.jpg"
+    bad_ships.forEach(bad_ship=>{
+        if (bad_ship.is_alive ==true)
+        ctx.drawImage(bad_ship_img,bad_ship.x,bad_ship.y,60,60)
+    })
+    if (dir_right == true){
+        if (bad_ships[0].x +3 ==900)
+        dir_right = false 
+    bad_ships.forEach(bad_ship=>{
+      bad_ship.x +=3 ;
+    })
+    }
+    else{
+        if (bad_ships[0].x -3 == 0)
+            dir_right = true;
+        bad_ships.forEach(bad_ship=>{
+                bad_ship.x -=3 ;
+            
+    })
+}
+}
+
+
 function draw_all_shoots(){
     G_shoot_array.forEach(newshoot=>{
-        draw_shoot(newshoot)
+        draw_shoot(newshoot,'red')
         newshoot.y-=newshoot.speed;
     });
     G_shoot_array.forEach((newshoot, index) => {
@@ -53,17 +83,42 @@ function draw_all_shoots(){
         }
     });
 }
-function draw_shoot(newshoot){
-    ctx.fillStyle = 'red';
+function draw_shoot(newshoot,color){
+    ctx.fillStyle = color;
     ctx.beginPath();
     ctx.arc(newshoot.x, newshoot.y, 5, 0, 2 * Math.PI);
     ctx.fill();
 }
+function draw_bad_shoot(){
+    bad_coolDown ++;
+    if (bad_coolDown >= 40){ 
+        bad = bad_ships[Math.floor(Math.random()*20)]
+        if(bad.is_alive == true){
+            const bad_shoot = {
+                x : bad.x + 3,
+                y : bad.y + 60,
+                speed: 5};
+            bad_coolDown = 0;
+            B_shoot_array.push(bad_shoot);
+    }
+    }
+}
+function draw_all_bad_shoots(){
+    B_shoot_array.forEach(bad_shoot=>{
+        draw_shoot(bad_shoot,'yellow')
+        bad_shoot.y+=bad_shoot.speed;
+    });
+    G_shoot_array.forEach((bad_shoot, index) => {
+        if(bad_shoot.y>=790){
+            B_shoot_array.splice(index,1);
+        }
+    });
+}
 
 
 function draw(){
-    ctx.drawImage(background,0,0,1100,500);
-    ctx.drawImage(spaceship_img,spaceship.x,spaceship.y,50,50)
+    ctx.drawImage(background,0,0,1300,700);
+    ctx.drawImage(spaceship_img,spaceship.x,spaceship.y,80,80)
     
    
      
@@ -79,7 +134,7 @@ function startgame(){
     background = new Image();
     background.src= "images/CI5Galaxy.webp";
     background.onload = function(){
-        ctx.drawImage(background,0,0,1100,500);   
+        ctx.drawImage(background,0,0,1300,700);   
     }
     
     //good spaceship
@@ -93,7 +148,26 @@ function startgame(){
     }
     //shoot of good spaceShip
    
-    
+
+    //bad ships:
+    var x_pos = 0;
+    var y_pos=0;
+    for (var i =0; i<5; i++){
+        for (var j=0; j<4; j++){
+        const bad_ship = {
+            x: x_pos,
+            y: y_pos ,
+            is_alive: true
+        }
+        bad_ships.push(bad_ship);
+        y_pos += 80;
+        }
+        y_pos = 0;
+        x_pos += 80;
+        
+    }
+    dir_right = true
+    bad_coolDown=0;
 
     
 
@@ -104,24 +178,26 @@ function startgame(){
     newGame();
 }
 function update_Shoot_Position(modifier){
+    interval_counter++;
     if (32 in keysDown){// player holding space}
-        console.log("space button pressed")
-        const newshoot = {
-        x : spaceship.x,
-        y : spaceship.y,
-        speed: 7
-        };
-        G_shoot_array.push(newshoot);
+        if (interval_counter >=8 || interval_counter == 0){
+            const newshoot = {
+            x : spaceship.x +40 ,
+            y : spaceship.y,
+            speed: 8};
+            G_shoot_array.push(newshoot);
+            interval_counter =1;
         }
+    }
 }
-function update_spacesheep_Position(modifier){
+function update_spaceship_Position(modifier){
     if ((38 in keysDown) ){// player holding up
         if(spaceship.y >= canvas.height - 0.4 * canvas.height)
-        spaceship.y -= 3;
+        spaceship.y -= 5;
     }
     if ((40 in keysDown) ){// player holding down
-        if(spaceship.y <= canvas.height-53 )
-        spaceship.y += 3;
+        if(spaceship.y <= canvas.height-55 )
+        spaceship.y += 5;
     }
     if ((37 in keysDown) ){// player holding left
         if(spaceship.x >= 8 )
