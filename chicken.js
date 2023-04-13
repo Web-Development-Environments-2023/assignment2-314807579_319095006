@@ -16,6 +16,19 @@ var dir_right;
 var bad_coolDown;
 const B_shoot_array = [];
 var bad;
+var score=0;
+var accel_count;
+var five_sec = 167;
+var flag ;
+var bullet_speed;
+var music= new Audio("audio/Bee_Gees_-_Stayin_Alive_[NaijaGreen.Com]_.mp3");
+var good_hit = new Audio("audio/good_hit.wav")
+var bad_hit = new Audio("audio/bad_hit.wav")
+var shoot_sound = new Audio("audio/shoot.wav")
+var lives = 3;
+
+
+
 function closeDialog() {
     document.getElementById("about").style.display = "none";
   }
@@ -29,7 +42,6 @@ if (event.key === "Escape") {
 function newGame(){
     then = Date.now();
     intervalTimer = setInterval(main,30)
-    
     }
 
 
@@ -43,29 +55,46 @@ function main(){
     draw_all_shoots();
     draw_bad_shoot();
     draw_all_bad_shoots();
+    bad_shoot_colider();
+    good_shoot_colider();
+    
     then=now;
+    
 }
 
 // draws the bad ships 4*5 
 function draw_bad_ships(){
+    five_sec--;
     bad_ship_img = new Image();
     bad_ship_img.src = "images/bad.jpg"
+    flag = false
+    if(five_sec == 0 && accel_count<4){
+        flag = true;
+        accel_count++
+        five_sec =167;
+        bullet_speed +=3;
+    }
+
     bad_ships.forEach(bad_ship=>{
-        if (bad_ship.is_alive ==true)
-        ctx.drawImage(bad_ship_img,bad_ship.x,bad_ship.y,60,60)
-    })
+            if (flag==true){
+                bad_ship.speed += 2;
+            }
+            if (bad_ship.is_alive == true){
+        ctx.drawImage(bad_ship_img,bad_ship.x,bad_ship.y,60,60)}
+    }
+    )
     if (dir_right == true){
-        if (bad_ships[0].x +3 ==900)
+        if (bad_ships[0].x +bad_ships[0].speed >=900)
         dir_right = false 
     bad_ships.forEach(bad_ship=>{
-      bad_ship.x +=3 ;
+      bad_ship.x +=bad_ship.speed ;
     })
     }
     else{
-        if (bad_ships[0].x -3 == 0)
+        if (bad_ships[0].x -bad_ships[0].speed <= 0)
             dir_right = true;
         bad_ships.forEach(bad_ship=>{
-                bad_ship.x -=3 ;
+                bad_ship.x -=bad_ship.speed ;
             
     })
 }
@@ -90,14 +119,13 @@ function draw_shoot(newshoot,color){
     ctx.fill();
 }
 function draw_bad_shoot(){
-    bad_coolDown ++;
-    if (bad_coolDown >= 40){ 
+    if (B_shoot_array.length ==0 || B_shoot_array[B_shoot_array.length -1].y >= 525) { 
         bad = bad_ships[Math.floor(Math.random()*20)]
         if(bad.is_alive == true){
             const bad_shoot = {
                 x : bad.x + 3,
                 y : bad.y + 60,
-                speed: 5};
+                speed: bullet_speed};
             bad_coolDown = 0;
             B_shoot_array.push(bad_shoot);
     }
@@ -123,9 +151,52 @@ function draw(){
    
      
 }
-window.addEventListener("load", startgame,false);
+
+function bad_shoot_colider(){
+    B_shoot_array.forEach((bad_shoot,index)=>{
+        if(bad_shoot.x >= spaceship.x + 20 && 
+            bad_shoot.x <=spaceship.x +80 -20 && 
+            bad_shoot.y >= spaceship.y &&
+            bad_shoot.y<= spaceship.y +80){
+                bad_hit.load()
+                bad_hit.play()
+                spaceship.x = canvas.width/2
+                spaceship.y = canvas.height -100;
+                lives--;
+                B_shoot_array.splice(index,1);
+                updateLives();
+            }  
+
+
+    })
+}
+function good_shoot_colider(){
+    G_shoot_array.forEach((good_shot,index)=>{
+        bad_ships.forEach(bad_ship=>{
+            if (bad_ship.is_alive == true){
+                if(good_shot.x >= bad_ship.x + 20 && 
+                    good_shot.x <=bad_ship.x +80 -20 && 
+                    good_shot.y >= bad_ship.y &&
+                    good_shot.y<= bad_ship.y +80){
+                        good_hit.load()
+                        good_hit.play()
+                        
+                        bad_ship.is_alive= false;
+                        G_shoot_array.splice(index,1);
+                        score += (4 - bad_ship.row) *5;
+                        updateScore();
+                        
+                    }
+            }
+        })
+    })
+}
+//window.addEventListener("load", startgame,false);
+
 function startgame(){
     
+    music.volume =0.5
+    music.play();
     canvas = document.getElementById("theCanvas");
     ctx = canvas.getContext("2d");
 
@@ -157,7 +228,9 @@ function startgame(){
         const bad_ship = {
             x: x_pos,
             y: y_pos ,
-            is_alive: true
+            is_alive: true,
+            row: j,
+            speed : 3
         }
         bad_ships.push(bad_ship);
         y_pos += 80;
@@ -166,10 +239,10 @@ function startgame(){
         x_pos += 80;
         
     }
-    dir_right = true
-    bad_coolDown=0;
-
-    
+    dir_right = true;
+    score ;
+    accel_count =0;
+    bullet_speed =3
 
     keysDown = {};
 	// Check for keys pressed where key represents the keycode captured
@@ -184,9 +257,12 @@ function update_Shoot_Position(modifier){
             const newshoot = {
             x : spaceship.x +40 ,
             y : spaceship.y,
-            speed: 8};
+            speed: 8,
+        };
             G_shoot_array.push(newshoot);
             interval_counter =1;
+            shoot_sound.load();
+            shoot_sound.play();
         }
     }
 }
@@ -258,4 +334,38 @@ function check(event){
     return true;
 
 }
-  
+function login(){
+    music.pause();                    
+    document.getElementById("welcome page").style.display = "none";
+    document.getElementById("sign up page").style.display = "none";
+    document.getElementById("game page").style.display = "none";
+    document.getElementById("theCanvas").style.display = "none";
+    document.getElementById("login page").style.display = "block";
+    document.getElementById("about").style.display = "none";
+
+}
+function signup(){
+    music.pause();
+    document.getElementById("welcome page").style.display = "none";
+    document.getElementById("game page").style.display = "none";
+    document.getElementById("theCanvas").style.display = "none";
+    document.getElementById("login page").style.display = "none";
+    document.getElementById("sign up page").style.display = "block";
+    document.getElementById("about").style.display = "none";
+
+}
+function welcome(){
+    music.pause();
+    document.getElementById("welcome page").style.display = "block";
+    document.getElementById("login page").style.display = "none";
+    document.getElementById("sign up page").style.display = "none";
+    document.getElementById("game page").style.display = "none";
+    document.getElementById("theCanvas").style.display = "none";
+    document.getElementById("about").style.display = "none";
+
+}
+function about(){
+    music.pause();
+    document.getElementById("about").style.display = "block";
+
+}                

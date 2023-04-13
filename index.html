@@ -23,20 +23,7 @@
                 </ul>
             </nav>
             <script>
-                function welcome()
-                {
-                    document.getElementById("welcome page").style.display = "block";
-                    document.getElementById("login page").style.display = "none";
-                    document.getElementById("sign up page").style.display = "none";
-                    document.getElementById("game page").style.display = "none";
-                    document.getElementById("theCanvas").style.display = "none";
-                    document.getElementById("about").style.display = "none";
-
-                }
-                function about(){
-                    document.getElementById("about").style.display = "block";
-
-                }
+                
             </script>
         </div>
         <content> 
@@ -47,24 +34,7 @@
                 <button id="sign up" onclick="signup()">Sign Up</button>
                 <h1><image src="images/BigChickenCIU.webp" alt="chicken" width="200" height="200"></h1>
                 <script>
-                    function login(){
-                        document.getElementById("welcome page").style.display = "none";
-                        document.getElementById("sign up page").style.display = "none";
-                        document.getElementById("game page").style.display = "none";
-                        document.getElementById("theCanvas").style.display = "none";
-                        document.getElementById("login page").style.display = "block";
-                        document.getElementById("about").style.display = "none";
-
-                    }
-                    function signup(){
-                        document.getElementById("welcome page").style.display = "none";
-                        document.getElementById("game page").style.display = "none";
-                        document.getElementById("theCanvas").style.display = "none";
-                        document.getElementById("login page").style.display = "none";
-                        document.getElementById("sign up page").style.display = "block";
-                        document.getElementById("about").style.display = "none";
-
-                    }
+                    
                 </script>
             </div>
 
@@ -96,6 +66,7 @@
                                 document.getElementById("theCanvas").style.display="block";
                                 document.getElementById("welcome page").style.display="none";
                                 document.getElementById("about").style.display = "none";
+                                startgame();
                                 return;
                             }
                         }
@@ -126,7 +97,9 @@
                 </form>
                 <button id="back" onclick="backSignUp()">Back</button>
                 <script>
+
                     function backSignUp(){
+                        
                         document.getElementById("sign up page").style.display = "none";
                         document.getElementById("welcome page").style.display = "block";
                     }
@@ -134,6 +107,40 @@
             </div>
 
             <div id="game page" style="display: none;" ALIGN="center">
+                <div id="timer"></div>
+
+                <script>
+                const startTime = Date.now(); // get the current time when the game starts
+                const timerElement = document.getElementById("timer");
+
+                setInterval(() => {
+                const elapsedTime = Date.now() - startTime; // calculate the elapsed time
+                const seconds = Math.floor(elapsedTime / 1000) ; // convert to seconds
+                const minutes = Math.floor(seconds / 60); // calculate minutes
+                const remainingSeconds = seconds % 60; // calculate remaining seconds
+                timerElement.innerHTML = `Time elapsed: ${minutes} minutes ${remainingSeconds} seconds`;
+                }, 1000); // update the timer every second
+                </script>
+                <script src="chicken.js"></script>
+                    <div id="score"> <span id="score-value"></span></div>
+                    <script>
+                        const scoreElement = document.getElementById("score-value")
+                        function updateScore(){
+                            var points = score
+                            scoreElement.innerHTML = 'Score: ' + points;
+                        }
+                        updateScore();
+                    </script>
+                <script src="chicken.js"></script>
+                    <div id="lives"> <span id="lives-value"></span></div>
+                    <script>
+                        const lives_element = document.getElementById("lives-value")
+                        function updateLives(){
+                            var Lnum = lives
+                            lives_element.innerHTML = 'Lives remaind: ' + Lnum;
+                        }
+                        updateLives();
+                    </script>
                 <canvas id = "theCanvas" width = "1300" height = "700"  ALIGN="center"></canvas> 
                 <script>
                     
