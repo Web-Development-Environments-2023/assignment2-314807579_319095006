@@ -62,11 +62,12 @@
                         for (var i = 0; i < validCredentials.length; i++) {
                             if (username === validCredentials[i].username && password === validCredentials[i].password) {
                                 document.getElementById("login page").style.display="none";
-                                document.getElementById("game page").style.display="block";
-                                document.getElementById("theCanvas").style.display="block";
+                                document.getElementById("game page").style.display="none";
+                                document.getElementById("theCanvas").style.display="none";
                                 document.getElementById("welcome page").style.display="none";
                                 document.getElementById("about").style.display = "none";
-                                startgame();
+                                document.getElementById("configuration").style.display="block";
+                                document.addEventListener("keydown", config);
                                 return;
                             }
                         }
@@ -142,15 +143,42 @@
                         updateLives();
                     </script>
                 <canvas id = "theCanvas" width = "1300" height = "700"  ALIGN="center"></canvas> 
-                <script>
-                    
-                </script>
+            
             </div>
 
             <dialog id="about">
                 <div id="myAbout">About:</div>
                 <button id="exit-button" onclick="closeDialog()">Close</button>
             </dialog>
+
+
+            <div id="configuration" style="display: none;">
+                <style>
+                    #configuration {
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                        font-size: 20px;
+                    }
+                    #configuration input {
+                        display: inline-block;
+                        height: 30px;
+                        font-size: 20px;
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
+                        
+                    }
+                </style>
+                <form name="config" onsubmit="return  game_after_config(event)">
+                    <label for="shootKeyInput">I want to shoot with:</label>
+                    <input type="text" id="shootKeyInput" name="shootKeyInput" readonly>
+                    <br><br>
+                    <label for="gameLengthInput">Enter game length (in minutes):</label>
+                    <input type="number" id="gameLengthInput" name="gameLengthInput" min="2">
+                    <br><br>
+                    <input type="submit" value="Start Game" >
+                    <script>
+    
+                    </script>
+            </div>
         </content>
 
         <footer>

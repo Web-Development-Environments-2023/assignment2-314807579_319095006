@@ -8,13 +8,13 @@ var canvas;
 var spaceship;
 var background;
 var keysDown;
-const G_shoot_array = [];
+var G_shoot_array = [];
 var can_shoot;
 var interval_counter=0;
-const bad_ships = [];
+var bad_ships = [];
 var dir_right; 
 var bad_coolDown;
-const B_shoot_array = [];
+var B_shoot_array = [];
 var bad;
 var score=0;
 var accel_count;
@@ -26,8 +26,8 @@ var good_hit = new Audio("audio/good_hit.wav")
 var bad_hit = new Audio("audio/bad_hit.wav")
 var shoot_sound = new Audio("audio/shoot.wav")
 var lives = 3;
-
-
+var shootKey;
+var gameLength=2;
 
 function closeDialog() {
     document.getElementById("about").style.display = "none";
@@ -41,8 +41,9 @@ if (event.key === "Escape") {
 
 function newGame(){
     then = Date.now();
-    intervalTimer = setInterval(main,30)
-    }
+    intervalTimer = setInterval(main,30);
+
+ }
 
 
 function main(){
@@ -146,10 +147,7 @@ function draw_all_bad_shoots(){
 
 function draw(){
     ctx.drawImage(background,0,0,1300,700);
-    ctx.drawImage(spaceship_img,spaceship.x,spaceship.y,80,80)
-    
-   
-     
+    ctx.drawImage(spaceship_img,spaceship.x,spaceship.y,80,80)  
 }
 
 function bad_shoot_colider(){
@@ -194,12 +192,25 @@ function good_shoot_colider(){
 //window.addEventListener("load", startgame,false);
 
 function startgame(){
-    
-    music.volume =0.5
+
+    //initilize all the variables
+    G_shoot_array = [];
+    B_shoot_array = [];
+    bad_ships = [];
+    dir_right = true;
+    accel_count = 0;
+    bullet_speed = 3;
+    lives = 3;
+    score = 0;
+    five_sec = 167; 
+
+
+    music.volume =0.3
     music.play();
+
     canvas = document.getElementById("theCanvas");
     ctx = canvas.getContext("2d");
-
+    
 
     //backgruond
     background = new Image();
@@ -225,7 +236,7 @@ function startgame(){
     var y_pos=0;
     for (var i =0; i<5; i++){
         for (var j=0; j<4; j++){
-        const bad_ship = {
+         bad_ship = {
             x: x_pos,
             y: y_pos ,
             is_alive: true,
@@ -239,16 +250,15 @@ function startgame(){
         x_pos += 80;
         
     }
-    dir_right = true;
-    score ;
-    accel_count =0;
-    bullet_speed =3
 
     keysDown = {};
 	// Check for keys pressed where key represents the keycode captured
 	addEventListener("keydown", function (e) {keysDown[e.keyCode] = true;}, false);
 	addEventListener("keyup", function (e) {delete keysDown[e.keyCode];}, false);
-    newGame();
+    // newGame();
+
+    then = Date.now();
+    intervalTimer = setInterval(main,30);
 }
 function update_Shoot_Position(modifier){
     interval_counter++;
@@ -342,6 +352,9 @@ function login(){
     document.getElementById("theCanvas").style.display = "none";
     document.getElementById("login page").style.display = "block";
     document.getElementById("about").style.display = "none";
+    document.getElementById("configuration").style.display = "none";
+
+
 
 }
 function signup(){
@@ -352,6 +365,8 @@ function signup(){
     document.getElementById("login page").style.display = "none";
     document.getElementById("sign up page").style.display = "block";
     document.getElementById("about").style.display = "none";
+    document.getElementById("configuration").style.display = "none";
+
 
 }
 function welcome(){
@@ -362,10 +377,33 @@ function welcome(){
     document.getElementById("game page").style.display = "none";
     document.getElementById("theCanvas").style.display = "none";
     document.getElementById("about").style.display = "none";
+    document.getElementById("configuration").style.display = "none";
 
 }
 function about(){
     music.pause();
     document.getElementById("about").style.display = "block";
 
-}                
+}  
+
+
+function config(event)
+{
+    event.preventDefault();
+    shootKey = event.key;
+    document.getElementById("shootKeyInput").value= shootKey;
+    
+}
+
+
+function game_after_config(event){
+    event.preventDefault();
+    gameLength=parseInt(document.getElementById("gameLengthInput").value);
+    document.getElementById("gameLengthInput").value= gameLength;
+    document.removeEventListener("keydown", config);
+    document.getElementById("game page").style.display="block";
+    document.getElementById("theCanvas").style.display="block";
+    document.getElementById("configuration").style.display="none";
+    
+    startgame();
+}
