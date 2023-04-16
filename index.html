@@ -108,42 +108,33 @@
             </div>
 
             <div id="game page" style="display: none;" ALIGN="center">
-                <div id="timer"></div>
-
-                <script>
-                const startTime = Date.now(); // get the current time when the game starts
-                const timerElement = document.getElementById("timer");
-
-                setInterval(() => {
-                const elapsedTime = Date.now() - startTime; // calculate the elapsed time
-                const seconds = Math.floor(elapsedTime / 1000) ; // convert to seconds
-                const minutes = Math.floor(seconds / 60); // calculate minutes
-                const remainingSeconds = seconds % 60; // calculate remaining seconds
-                timerElement.innerHTML = `Time elapsed: ${minutes} minutes ${remainingSeconds} seconds`;
-                }, 1000); // update the timer every second
-                </script>
                 <script src="chicken.js"></script>
-                    <div id="score"> <span id="score-value"></span></div>
+                    <div id="score" ALIGN="left"> <span id="timer"></span><br><span id="score-value"></span> <br> <span id="lives-value"></span></div>
                     <script>
                         const scoreElement = document.getElementById("score-value")
                         function updateScore(){
                             var points = score
                             scoreElement.innerHTML = 'Score: ' + points;
+                            if (score === 250) {
+                                alert("Champion")
+                                startgame()
+                            }
                         }
                         updateScore();
-                    </script>
-                <script src="chicken.js"></script>
-                    <div id="lives"> <span id="lives-value"></span></div>
-                    <script>
                         const lives_element = document.getElementById("lives-value")
                         function updateLives(){
                             var Lnum = lives
                             lives_element.innerHTML = 'Lives remaind: ' + Lnum;
+                            if (lives === 0){
+                                alert("You lost..")
+                                startgame()
+                                
+                            }
                         }
                         updateLives();
                     </script>
-                <canvas id = "theCanvas" width = "1300" height = "700"  ALIGN="center"></canvas> 
-            
+                <div id="canvasDiv"><button id="newGame"onclick="startgame()" >new Game </button> <canvas id = "theCanvas" width = "1000" height = "500"  ALIGN="center"></canvas> </div>
+                <!-- <button id = "newGame" onclick="startgame()" >new Game </button> -->
             </div>
 
             <dialog id="about">

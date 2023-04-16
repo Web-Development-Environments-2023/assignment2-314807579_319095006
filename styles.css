@@ -141,4 +141,8 @@ body {
     color: #000;
     background-color: #e4f6e8;
   }
+  .canvasDiv {
+    display: flex;
+    flex-direction: column;
+  }
 
