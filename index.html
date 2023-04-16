@@ -109,12 +109,53 @@
 
             <div id="game page" style="display: none;" ALIGN="center">
                 <script src="chicken.js"></script>
-                    <div id="score" ALIGN="left"> <span id="timer"></span><br><span id="score-value"></span> <br> <span id="lives-value"></span></div>
+                    <div id="canvasDiv" style="display: flex; flex-direction: row;">
+                        <h4>
+                            <!-- <span id="timer"></span><br>
+                            <span id="score-value"></span> <br> 
+                            <span id="lives-value"></span> -->
+                            <div id="timer" ></div>
+                            <style>
+                                #timer {
+                                    font-size: 15px;
+                                    color: rgb(8, 8, 8);
+                                    text-align: center;
+                                    width: 80%;
+                                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                                }
+                            </style>
+                            <br>
+                            <div id="score-value"></div>
+                            <style>
+                                #score-value {
+                                    font-size: 15px;
+                                    color: rgb(8, 8, 8);
+                                    text-align: center;
+                                    width: 80%;
+                                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                                }
+                            </style>
+                            <br>
+                            <div id="lives-value"></div>
+                            <style>
+                                #lives-value {
+                                    font-size: 15px;
+                                    color: rgb(8, 8, 8);
+                                    text-align: center;
+                                    width: 80%;
+                                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                                }
+                            </style>
+                            <br>
+                            <button id="newGame"onclick="startgame()" >new Game </button> 
+                        </h4>
+                        <canvas id = "theCanvas" width = "1000" height = "500"  ALIGN="center"></canvas> 
+                    </div>
                     <script>
                         const scoreElement = document.getElementById("score-value")
                         function updateScore(){
                             var points = score
-                            scoreElement.innerHTML = 'Score: ' + points;
+                            scoreElement.innerHTML = "Score:\n" + points;
                             if (score === 250) {
                                 alert("Champion")
                                 startgame()
@@ -124,7 +165,7 @@
                         const lives_element = document.getElementById("lives-value")
                         function updateLives(){
                             var Lnum = lives
-                            lives_element.innerHTML = 'Lives remaind: ' + Lnum;
+                            lives_element.innerHTML = "Lives remaining:\n" + Lnum;
                             if (lives === 0){
                                 alert("You lost..")
                                 startgame()
@@ -133,8 +174,7 @@
                         }
                         updateLives();
                     </script>
-                <div id="canvasDiv"><button id="newGame"onclick="startgame()" >new Game </button> <canvas id = "theCanvas" width = "1000" height = "500"  ALIGN="center"></canvas> </div>
-                <!-- <button id = "newGame" onclick="startgame()" >new Game </button> -->
+              
             </div>
 
             <dialog id="about">
@@ -160,10 +200,10 @@
                 </style>
                 <form name="config" onsubmit="return  game_after_config(event)">
                     <label for="shootKeyInput">I want to shoot with:</label>
-                    <input type="text" id="shootKeyInput" name="shootKeyInput" readonly>
+                    <input type="text" id="shootKeyInput" name="shootKeyInput" placeholder="SpaceBar or Letter" required >
                     <br><br>
                     <label for="gameLengthInput">Enter game length (in minutes):</label>
-                    <input type="number" id="gameLengthInput" name="gameLengthInput" min="2">
+                    <input type="number" id="gameLengthInput" name="gameLengthInput" placeholder="2+" min="2" required>
                     <br><br>
                     <input type="submit" value="Start Game" >
                     <script>

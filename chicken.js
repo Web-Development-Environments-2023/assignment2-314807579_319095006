@@ -412,7 +412,23 @@ function config(event)
 {
     event.preventDefault();
     shootKey = event.key;
-    document.getElementById("shootKeyInput").value= shootKey;
+
+    if (shootKey === " ")
+    {
+        // display in the input box the word space
+        shootKey = " ";
+        document.getElementById("shootKeyInput").value= event.key;
+    }
+    //check if shootKey is a letter
+    else if (shootKey.length === 1 && shootKey.match(/[a-z]/i))
+    {
+        document.getElementById("shootKeyInput").value= shootKey;
+    }
+    else
+    {
+        alert("Please enter a letter or the space-bar");
+    }
+    
     
 }
 
@@ -440,7 +456,7 @@ function updateTimer(){
     seconds = Math.floor(elapsedTime / 1000) ; // convert to seconds
     minutes = Math.floor(seconds / 60); // calculate minutes
     var remainingSeconds = seconds % 60; // calculate remaining seconds
-    timerElement.innerHTML = `Time elapsed: ${minutes} minutes ${remainingSeconds} seconds`;
+    timerElement.innerHTML = `Time elapsed:\n${minutes} minutes ${remainingSeconds} seconds`;
     if( seconds === 0){
         if(score < 100){
             alert("You can do better");

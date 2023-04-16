@@ -27,7 +27,7 @@ h1
 
 button
 {
-    align-items: center;
+    /* align-items: center; */
     text-align: center;
     font-size: 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -38,6 +38,7 @@ button
 
 
 }
+
 
 
 
@@ -141,8 +142,7 @@ body {
     color: #000;
     background-color: #e4f6e8;
   }
-  .canvasDiv {
-    display: flex;
-    flex-direction: column;
-  }
+
+
+/* canvasDiv class should be columns  */
 
