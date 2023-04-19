@@ -388,7 +388,7 @@ function signup(){
     document.getElementById("about").style.display = "none";
     document.getElementById("configuration").style.display = "none";
 
-
+//
 }
 function welcome(){
     music.pause();
@@ -447,7 +447,7 @@ function config(event)
         alert("Please enter a letter or the space-bar");
     }
     
-    
+    //
 }
 
 
