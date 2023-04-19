@@ -170,7 +170,7 @@
                             if (score === 250) {
                                 best_scores.push(score)
                                 showScores()  
-                                startgame()
+                                // startgame()
                                 
                             }
                         }
@@ -183,7 +183,6 @@
                                 
                                 best_scores.push(score) 
                                 showScores()                               
-                                startgame()
                             }
                         }
                         updateLives();
@@ -207,21 +206,22 @@
                 <script>
                     function closeScoreDialog(){
                         document.getElementById("scoreTable").style.display ="none";
+                        startgame()
                     }
                     scoreTableElement =document.getElementById("scoreTable-value")
                     function showScores() {
                         if (lives === 0){
-                            scoreTableElement.innerHTML = ("             You Lost<br><br>")
+                            scoreTableElement.innerHTML = ("You Lost<br><br>")
                         }
                         else if(score === 250){
-                            scoreTableElement.innerHTML = ("             Champion<br><br>")
+                            scoreTableElement.innerHTML = ("Champion<br><br>")
                         }
                         else{
                             if(score >=100){
-                            scoreTableElement.innerHTML = ("              Winner<br><br>")
+                            scoreTableElement.innerHTML = ("Winner<br><br>")
                             }
                             else{
-                                scoreTableElement.innerHTML = ("             You can do better<br><br>")
+                                scoreTableElement.innerHTML = ("You can do better<br><br>")
                             }
                         }
                         // Get the best scores list and the player's last score
@@ -247,11 +247,8 @@
                     document.addEventListener("mouseup", function(event){
                         var dialog = document.getElementById("scoreTable")
                         if (event.target != dialog && event.target.parentNode != dialog ) {
-                            
-            // Close the dialog if it is open
-                    if (dialog.style.display == "block") {
-                        dialog.style.display = "none";
-                    }
+                            closeScoreDialog();
+                    
                 }  
 
                     })

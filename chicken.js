@@ -26,7 +26,7 @@ var good_hit = new Audio("audio/good_hit.wav")
 var bad_hit = new Audio("audio/bad_hit.wav")
 var shoot_sound = new Audio("audio/shoot.wav")
 var lives = 3;
-var shootKey;
+var shootKey=" ";
 var gameLength= 2;
 var elapsedTime;
 var intrval_id;
@@ -264,7 +264,7 @@ function startgame(){
 
     keysDown = {};
 	// Check for keys pressed where key represents the keycode captured
-	addEventListener("keydown", function (e) {keysDown[e.keyCode] = true;}, false);
+	addEventListener("keydown", function (e) {keysDown[e.keyCode] = true; e.preventDefault()}, false);
 	addEventListener("keyup", function (e) {delete keysDown[e.keyCode];}, false);
     // newGame();
 
@@ -407,7 +407,7 @@ function welcome(){
 
 
 function about(){
-    music.pause();
+    // music.pause();
     
     document.getElementById("about").style.display = "block";
     document.addEventListener("mouseup", function(event) {
@@ -415,9 +415,7 @@ function about(){
         // Check if the clicked element is outside of the dialog frame
                 if (event.target != dialog && event.target.parentNode != dialog ) {
             // Close the dialog if it is open
-                    if (dialog.style.display == "block") {
-                        dialog.style.display = "none";
-                    }
+                    closeDialog();
                 }   
             });
                     
@@ -483,4 +481,4 @@ function updateTimer(){
     }
     }; // update the timer every second
 
-    
+
