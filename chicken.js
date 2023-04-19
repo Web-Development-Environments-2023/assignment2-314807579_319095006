@@ -34,6 +34,7 @@ var timerElement;
 var startTime;
 var minutes;
 var seconds;
+var best_scores;
 
 function closeDialog() {
     document.getElementById("about").style.display = "none";
@@ -197,7 +198,8 @@ function good_shoot_colider(){
 //window.addEventListener("load", startgame,false);
 
 function startgame(){
-
+    clearInterval(intervalTimer)
+    
     //initilize all the variables
     G_shoot_array = [];
     B_shoot_array = [];
@@ -267,7 +269,7 @@ function startgame(){
     // newGame();
 
     then = Date.now();
-    clearInterval(intervalTimer)
+    //document.getElementById("canvasDiv").dispatchEvent(new Event('click'))
     intervalTimer = setInterval(main,30);
     timer();
     updateLives()
@@ -276,6 +278,7 @@ function startgame(){
 function update_Shoot_Position(modifier){
     interval_counter++;
     key = shootKey.toUpperCase().charCodeAt(0)
+   
     if (key in keysDown){// player holding space}
         if (interval_counter >=8 || interval_counter == 0){
             const newshoot = {
@@ -350,10 +353,10 @@ function check(event){
     validCredentials.push({username: username1, password: password1});
     alert("Account created");
     console.log(validCredentials);
-    document.getElementById("game page").style.display="block";
-    document.getElementById("theCanvas").style.display="block";
+    document.getElementById("game page").style.display="none";
+    document.getElementById("theCanvas").style.display="none";
     document.getElementById("login page").style.display="none";
-    document.getElementById("welcome page").style.display="none";
+    document.getElementById("welcome page").style.display="block";
     document.getElementById("sign up page").style.display="none";
     return true;
 
@@ -400,10 +403,25 @@ function welcome(){
     document.getElementById("configuration").style.display = "none";
 
 }
+    
+
+
 function about(){
     music.pause();
     
     document.getElementById("about").style.display = "block";
+    document.addEventListener("mouseup", function(event) {
+        var dialog = document.getElementById("about")
+        // Check if the clicked element is outside of the dialog frame
+                if (event.target != dialog && event.target.parentNode != dialog ) {
+            // Close the dialog if it is open
+                    if (dialog.style.display == "block") {
+                        dialog.style.display = "none";
+                    }
+                }   
+            });
+                    
+
 
 }  
 
@@ -458,13 +476,11 @@ function updateTimer(){
     var remainingSeconds = seconds % 60; // calculate remaining seconds
     timerElement.innerHTML = `Time elapsed:\n${minutes} minutes ${remainingSeconds} seconds`;
     if( seconds === 0){
-        if(score < 100){
-            alert("You can do better");
-            
-        }
-        else{
-            alert("Winner!")
-        }
+        best_scores.push(score)
+        showScores();
         startgame();
+
     }
     }; // update the timer every second
+
+    
