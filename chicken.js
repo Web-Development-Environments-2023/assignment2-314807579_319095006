@@ -21,10 +21,10 @@ var accel_count;
 var five_sec;
 var flag ;
 var bullet_speed;
-var music= new Audio("audio/Bee_Gees_-_Stayin_Alive_[NaijaGreen.Com]_.mp3");
-var good_hit = new Audio("audio/good_hit.wav")
-var bad_hit = new Audio("audio/bad_hit.wav")
-var shoot_sound = new Audio("audio/shoot.wav")
+var music = new Audio("audio/Bee_Gees_-_Stayin_Alive_[NaijaGreen.Com]_.mp3");
+var good_hit
+var bad_hit
+var shoot_sound 
 var lives = 3;
 var shootKey=" ";
 var gameLength= 2;
@@ -199,7 +199,9 @@ function good_shoot_colider(){
 
 function startgame(){
     clearInterval(intervalTimer)
-    
+    good_hit = new Audio("audio/good_hit.wav")
+    bad_hit = new Audio("audio/bad_hit.wav")
+    shoot_sound = new Audio("audio/shoot.wav")
     //initilize all the variables
     G_shoot_array = [];
     B_shoot_array = [];
@@ -212,7 +214,11 @@ function startgame(){
     five_sec = 167; 
     flag = false;
     interval_counter = 0;
-    music.volume =0
+    if(music.currentTime > 0){
+        music.pause();
+        music.currentTime =0;
+    }
+    music.volume =0.1
     music.play();
     
 
@@ -264,9 +270,11 @@ function startgame(){
 
     keysDown = {};
 	// Check for keys pressed where key represents the keycode captured
-	addEventListener("keydown", function (e) {keysDown[e.keyCode] = true; e.preventDefault()}, false);
+    if(canvas.style.display == 'block'){
+	addEventListener("keydown", function (e) {keysDown[e.keyCode] = true; e.preventDefault() }, false);
 	addEventListener("keyup", function (e) {delete keysDown[e.keyCode];}, false);
     // newGame();
+    }
 
     then = Date.now();
     //document.getElementById("canvasDiv").dispatchEvent(new Event('click'))
@@ -362,7 +370,12 @@ function check(event){
 
 }
 function login(){
-    music.pause();
+    if(music.currentTime > 0){
+        music.pause();
+        music.currentTime =0;
+    }
+    
+    
     clearInterval(intervalTimer)    
     clearInterval(intrval_id)               
     document.getElementById("welcome page").style.display = "none";
@@ -377,7 +390,10 @@ function login(){
 
 }
 function signup(){
-    music.pause();
+    if(music.currentTime > 0){
+        music.pause();
+        music.currentTime =0;
+    }
     clearInterval(intervalTimer)
     clearInterval(intrval_id)   
     document.getElementById("welcome page").style.display = "none";
@@ -391,7 +407,10 @@ function signup(){
 //
 }
 function welcome(){
-    music.pause();
+    if(music.currentTime > 0){
+        music.pause();
+        music.currentTime =0;
+    }
     clearInterval(intervalTimer)
     clearInterval(intrval_id)   
     document.getElementById("welcome page").style.display = "block";
@@ -407,7 +426,6 @@ function welcome(){
 
 
 function about(){
-    // music.pause();
     
     document.getElementById("about").style.display = "block";
     document.addEventListener("mouseup", function(event) {

@@ -193,23 +193,20 @@
             <dialog id="about">
                 <div id="myAbout">About:</div>
                 <button id="exit-button" onclick="closeDialog()">Close</button>
-                <script>
-                   
-                </script>
-                
-            
             </dialog>
 
             <dialog id="scoreTable">
-                <button id="exit-button" onclick="closeScoreDialog()">Close</button>
+                
                 <div id ="scoreTable-value"> </div>
                 <script>
                     function closeScoreDialog(){
+                        
                         document.getElementById("scoreTable").style.display ="none";
                         startgame()
                     }
                     scoreTableElement =document.getElementById("scoreTable-value")
                     function showScores() {
+                        
                         if (lives === 0){
                             scoreTableElement.innerHTML = ("You Lost<br><br>")
                         }
@@ -243,16 +240,23 @@
                         });
                         scoreTableElement.innerHTML +=("Player Scores:<br>" + scoreItems.join("<br>"));
                         document.getElementById("scoreTable").style.display ='block'
+                        
+                        // document.addEventListener("mouseup",  clickOutsideDialog(event))
+                        clearInterval(intervalTimer)    
                     }
-                    document.addEventListener("mouseup", function(event){
-                        var dialog = document.getElementById("scoreTable")
-                        if (event.target != dialog && event.target.parentNode != dialog ) {
-                            closeScoreDialog();
+                //     function clickOutsideDialog(event){
+                //         var dialog = document.getElementById("scoreTable")
+                //         if (event.target != dialog && event.target.parentNode != dialog ) {
+                        
+                //             closeScoreDialog();
+                //     }
+                       
                     
-                }  
+                // }
 
-                    })
+                    
                 </script>
+                <div><button id="exit-button" onclick="closeScoreDialog()"> Start </button></div>
                 
             </dialog>
 

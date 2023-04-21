@@ -43,6 +43,7 @@ button
 
 
 
+
 footer {
     padding: 10px; /* spacing inside the footer */
     text-align: center; /* center align the content in the footer */
@@ -90,6 +91,10 @@ nav ul li {
     text-decoration: none;
     font-weight: bold;
       
+}
+li:hover{
+  color:#ccc;
+  background-color: #333
 }
 
 body {
