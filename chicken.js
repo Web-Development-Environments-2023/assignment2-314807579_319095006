@@ -42,11 +42,7 @@ function closeDialog() {
     document.getElementById("about").style.display = "none";
   }
 
-document.addEventListener("keydown", function(event) {
-if (event.key === "Escape") {
-    closeDialog();
-}
-});
+
 
 function newGame(){
     then = Date.now();
@@ -305,11 +301,12 @@ function startgame(){
 
     keysDown = {};
 	// Check for keys pressed where key represents the keycode captured
-    if(canvas.style.display == 'block'){
-	addEventListener("keydown", function (e) {keysDown[e.keyCode] = true; e.preventDefault() }, false);
-	addEventListener("keyup", function (e) {delete keysDown[e.keyCode];}, false);
-    // newGame();
-    }
+    // if(canvas.style.display === 'block'){
+    //     addEventListener("keydown", function (e) {keysDown[e.keyCode] = true; e.preventDefault() }, false);
+    //     addEventListener("keyup", function (e) {delete keysDown[e.keyCode];}, false);
+    // }
+    addEventListener("keydown", key_down, false);
+    addEventListener("keyup", key_up, false);
 
     then = Date.now();
     //document.getElementById("canvasDiv").dispatchEvent(new Event('click'))
@@ -318,6 +315,18 @@ function startgame(){
     updateLives()
     updateScore()
 }
+
+
+function key_down(e){
+    keysDown[e.keyCode] = true;
+     e.preventDefault();
+}
+
+function key_up(e){
+    delete keysDown[e.keyCode];
+}
+
+
 function update_Shoot_Position(modifier){
     interval_counter++;
     key = shootKey.toUpperCase().charCodeAt(0)
@@ -409,8 +418,8 @@ function login(){
         music.pause();
         music.currentTime =0;
     }
-    
-    
+    removeEventListener("keydown", key_down, false);
+    removeEventListener("keyup", key_up, false);
     clearInterval(intervalTimer)    
     clearInterval(intrval_id)               
     document.getElementById("welcome_page").style.display = "none";
@@ -431,6 +440,8 @@ function signup(){
     }
     clearInterval(intervalTimer)
     clearInterval(intrval_id)   
+    removeEventListener("keydown", key_down, false);
+    removeEventListener("keyup", key_up, false);
     document.getElementById("welcome_page").style.display = "none";
     document.getElementById("game_page").style.display = "none";
     document.getElementById("theCanvas").style.display = "none";
@@ -448,6 +459,8 @@ function welcome(){
     }
     clearInterval(intervalTimer)
     clearInterval(intrval_id)   
+    removeEventListener("keydown", key_down, false);
+    removeEventListener("keyup", key_up, false);
     document.getElementById("welcome_page").style.display = "block";
     document.getElementById("login page").style.display = "none";
     document.getElementById("sign_up_page").style.display = "none";
@@ -471,6 +484,12 @@ function about(){
                     closeDialog();
                 }   
             });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            closeDialog();
+        }
+        });
                     
 
 

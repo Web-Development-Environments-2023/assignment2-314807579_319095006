@@ -138,9 +138,11 @@ div#sign_up_square{
   padding: 2%;
   width: 40%;
   height: 30%;
-  margin-bottom: 2%;
-  ;
 
+}
+
+div#sign_up_square form {
+  font-size: x-small;
 }
 
 canvas#theCanvas {
