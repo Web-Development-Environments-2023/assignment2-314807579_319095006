@@ -109,9 +109,9 @@
                 </script>
             </div>
 
-            <div id="game page" style="display: none;" ALIGN="center">
+            <div id="game page" style="display: none; resize: both;" ALIGN="center">
                 <script src="chicken.js"></script>
-                    <div id="canvasDiv" style="display: flex; flex-direction: row;">
+                    <div id="canvasDiv" style="display: flex; flex-direction: row; resize: both;">
                         <h4>
                             <!-- <span id="timer"></span><br>
                             <span id="score-value"></span> <br> 
@@ -160,7 +160,7 @@
                                     }
                             </script> 
                         </h4>
-                        <canvas id = "theCanvas" width = "1000" height = "500"  ALIGN="center"></canvas> 
+                        <canvas id = "theCanvas"  ALIGN="center" style="resize: both; "> </canvas> 
                     </div>
                     <script>
                         const scoreElement = document.getElementById("score-value")
@@ -242,7 +242,8 @@
                         document.getElementById("scoreTable").style.display ='block'
                         
                         // document.addEventListener("mouseup",  clickOutsideDialog(event))
-                        clearInterval(intervalTimer)    
+                        clearInterval(intervalTimer)
+                        clearInterval(intrval_id)    
                     }
                 //     function clickOutsideDialog(event){
                 //         var dialog = document.getElementById("scoreTable")

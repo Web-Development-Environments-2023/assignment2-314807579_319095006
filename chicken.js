@@ -35,6 +35,8 @@ var startTime;
 var minutes;
 var seconds;
 var best_scores;
+var screenWidth 
+var screenHeight 
 
 function closeDialog() {
     document.getElementById("about").style.display = "none";
@@ -72,6 +74,7 @@ function main(){
 
 // draws the bad ships 4*5 
 function draw_bad_ships(){
+    
     five_sec--;
     bad_ship_img = new Image();
     bad_ship_img.src = "images/bad.jpg"
@@ -123,7 +126,7 @@ function draw_all_shoots(){
 function draw_shoot(newshoot,color){
     ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.arc(newshoot.x, newshoot.y, 5, 0, 2 * Math.PI);
+    ctx.arc(newshoot.x, newshoot.y, canvas.width/160, 0, 2 * Math.PI);
     ctx.fill();
 }
 function draw_bad_shoot(){
@@ -195,8 +198,38 @@ function good_shoot_colider(){
         })
     })
 }
-//window.addEventListener("load", startgame,false);
+var prevW;
+var prevH;
+function resize_cancas(){
+    screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth || canvas.parentElement.clientWidth;
+    screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight || canvas.parentElement.clientHeight;
+    canvas.width = screenWidth * 0.7;
+    canvas.height = screenHeight* 0.7;
+    spaceship.x = canvas.width /2
+    spaceship.y = canvas.height - 100
+    
+    x_pos = 0
+    y_pos =0
+    for (var i =0; i<5; i++){
+        y_pos = 0;
+        for (var j=0; j<4; j++){
+            if (i ==0 && j == 0 ){
+                x_pos = bad_ships[0].x
+            }
+            bad_ships[i*4 +j].x = x_pos
+            bad_ships[i*4 +j].y = y_pos 
+            y_pos += canvas.width / 20
+        }
+        bad_ships[i*4 +j].x = x_pos + canvas.width / 20 
+        x_pos += canvas.width / 20 
+    }
+    prevW = canvas.width
+    prevH = canvas.height
+    
+}
 
+
+window.addEventListener('resize',resize_cancas)
 function startgame(){
     clearInterval(intervalTimer)
     good_hit = new Audio("audio/good_hit.wav")
@@ -218,16 +251,18 @@ function startgame(){
         music.pause();
         music.currentTime =0;
     }
-    music.volume =0.1
+    music.volume =0
     music.play();
     
 
     canvas = document.getElementById("theCanvas");
     ctx = canvas.getContext("2d");
-    var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    var screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth ||canvas.parentElement.clientWidth;;
+    screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight ||canvas.parentElement.clientHeight;;
     canvas.width = screenWidth * 0.7;
     canvas.height = screenHeight *0.7;
+    prevW = canvas.width
+    prevH = canvas.height
 
     //backgruond
     background = new Image();
