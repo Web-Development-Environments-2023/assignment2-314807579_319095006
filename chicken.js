@@ -396,11 +396,11 @@ function check(event){
     validCredentials.push({username: username1, password: password1});
     alert("Account created");
     console.log(validCredentials);
-    document.getElementById("game page").style.display="none";
+    document.getElementById("game_page").style.display="none";
     document.getElementById("theCanvas").style.display="none";
     document.getElementById("login page").style.display="none";
-    document.getElementById("welcome page").style.display="block";
-    document.getElementById("sign up page").style.display="none";
+    document.getElementById("welcome_page").style.display="block";
+    document.getElementById("sign_up_page").style.display="none";
     return true;
 
 }
@@ -413,9 +413,9 @@ function login(){
     
     clearInterval(intervalTimer)    
     clearInterval(intrval_id)               
-    document.getElementById("welcome page").style.display = "none";
-    document.getElementById("sign up page").style.display = "none";
-    document.getElementById("game page").style.display = "none";
+    document.getElementById("welcome_page").style.display = "none";
+    document.getElementById("sign_up_page").style.display = "none";
+    document.getElementById("game_page").style.display = "none";
     document.getElementById("theCanvas").style.display = "none";
     document.getElementById("login page").style.display = "block";
     document.getElementById("about").style.display = "none";
@@ -431,11 +431,11 @@ function signup(){
     }
     clearInterval(intervalTimer)
     clearInterval(intrval_id)   
-    document.getElementById("welcome page").style.display = "none";
-    document.getElementById("game page").style.display = "none";
+    document.getElementById("welcome_page").style.display = "none";
+    document.getElementById("game_page").style.display = "none";
     document.getElementById("theCanvas").style.display = "none";
     document.getElementById("login page").style.display = "none";
-    document.getElementById("sign up page").style.display = "block";
+    document.getElementById("sign_up_page").style.display = "block";
     document.getElementById("about").style.display = "none";
     document.getElementById("configuration").style.display = "none";
 
@@ -448,10 +448,10 @@ function welcome(){
     }
     clearInterval(intervalTimer)
     clearInterval(intrval_id)   
-    document.getElementById("welcome page").style.display = "block";
+    document.getElementById("welcome_page").style.display = "block";
     document.getElementById("login page").style.display = "none";
-    document.getElementById("sign up page").style.display = "none";
-    document.getElementById("game page").style.display = "none";
+    document.getElementById("sign_up_page").style.display = "none";
+    document.getElementById("game_page").style.display = "none";
     document.getElementById("theCanvas").style.display = "none";
     document.getElementById("about").style.display = "none";
     document.getElementById("configuration").style.display = "none";
@@ -507,7 +507,7 @@ function game_after_config(event){
     gameLength=parseInt(document.getElementById("gameLengthInput").value);
     document.getElementById("gameLengthInput").value= gameLength;
     document.removeEventListener("keydown", config);
-    document.getElementById("game page").style.display="block";
+    document.getElementById("game_page").style.display="block";
     document.getElementById("theCanvas").style.display="block";
     document.getElementById("configuration").style.display="none";
     

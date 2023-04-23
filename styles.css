@@ -25,6 +25,11 @@ h1
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+div#welcome_page h1{
+  padding-top: 5%;
+  color: whitesmoke;
+}
+
 button
 {
     /* align-items: center; */
@@ -39,13 +44,133 @@ button
 
 }
 
+label {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
 
 
+
+
+
+h4 {
+    text-align: center;
+    color: #f8f3f3;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+}
+
+
+div#around_game{
+  width: 15%;
+  height: 100%;
+  position: absolute;
+  align-items: left;
+    
+}
+
+div#scoreTable-value{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-emphasis: bold;
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+
+}
+
+
+div#login_square{    
+    border: #000;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 1px;
+    background-color:#ebe3dc;
+    width:40%;
+    height: 70%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+
+div#configuration{
+  align-items: center;
+  border: #000;
+  border-radius: 10px;
+  border-style: Wavy ;
+  border-width: 1px;
+  width: 30%;
+  height: 60%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ebe3dc;
+  padding: 20px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+input[type=text]:focus {
+  background-color: lightblue;
+  box-sizing: border-box
+
+}
+
+
+/*items should be in the center*/
+/* div#sign_up_page{
+  margin-top: 6%; 
+  margin-bottom: 10%; 
+  width:50%;
+  height: 3%;;
+  position: absolute;
+} */
+
+
+
+div#sign_up_square{
+  border: #000;
+  border-radius: 10px;
+  border-style: wavy ;
+  border-width: 1px;
+  background-color: #ebe3dc;;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 2%;
+  width: 40%;
+  height: 30%;
+  margin-bottom: 2%;
+  ;
+
+}
+
+canvas#theCanvas {
+  width: 80%; 
+  height: 80%;  
+  border: #ccc;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 1px;
+  margin-left: 15% ;
+  margin-top: 0; 
+
+}
+
+
+ 
+
+div#game_page{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  margin: 0 auto; /* Center content */
+  top: 10%;
+  left: 0;
+  bottom: 0;
+}
 
 
 footer {
-    padding: 10px; /* spacing inside the footer */
+    padding: 0.5%; /* spacing inside the footer */
     text-align: center; /* center align the content in the footer */
     position: fixed; /* make the footer stay at the bottom of the viewport */
     bottom: 0; /* position the footer at the bottom of the viewport */
@@ -57,21 +182,22 @@ footer {
     font-size: 20px;
     color: #000;
     z-index: 1;
-    margin-top: auto;
         
 }
 
-  
+div#welcome_page
+{
+  background-image: url('images/2cf9d601258a2fa7994064dc6b9c3f0f.jpeg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  margin-top: 2%;
+}
 
 nav ul {
-    /* list-style: none;
-    overflow: hidden;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-    font-size: 20px; */
     background-color: #e4f6e8;
     list-style: none;
     margin: 0;
@@ -97,9 +223,17 @@ li:hover{
   background-color: #333
 }
 
-body {
-    padding-top: 100px; /* add 60px padding to the top of the body */
-    margin: auto;
+
+
+  body {
+    padding-top: 10%; /* add 60px padding to the top of the body */
+    background-image: url('images/2cf9d601258a2fa7994064dc6b9c3f0f.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    margin: 0 auto; /* Center content */
+    overflow: hidden;
+
   }
 
 
@@ -148,6 +282,33 @@ body {
     background-color: #e4f6e8;
   }
 
+
+  /* #timer {
+    font-size: 15px;
+    color: rgb(12, 12, 12);
+    text-align: center;
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+} */
+
+/* #score-value {
+  font-size: 15px;
+  color: rgb(17, 17, 17);
+  text-align: center;
+  width: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+} */
+
+
+/* #lives-value {
+  font-size: 15pdsdv  x;
+  color: rgb(17, 17, 17);
+  text-align : center;
+  width: 100% ;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-emphasis: bold;
+} */
 
 /* canvasDiv class should be columns  */
 
