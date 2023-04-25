@@ -219,7 +219,7 @@ window.addEventListener('resize',resize_cancas)
 
 //all actions for new game to start 
 function startgame(){
-
+    clearInterval(intrval_id)
     clearInterval(intervalTimer)
     good_hit = new Audio("audio/good_hit.wav")
     bad_hit = new Audio("audio/bad_hit.wav")
@@ -241,8 +241,11 @@ function startgame(){
         music.pause();
         music.currentTime =0;
     }
-    music.volume =0
+    music.volume =0.08
     music.play();
+    good_hit.volume =0.4
+    bad_hit.volume =0.4
+    shoot_sound.volume = 0.4
     
 
     canvas = document.getElementById("theCanvas");

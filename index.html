@@ -104,6 +104,7 @@
                         document.getElementById("theCanvas").style.display="none";
                         document.getElementById("game_page").style.display="block";
                         document.getElementById("theCanvas").style.display="block";
+                        
                         startgame()
                         }
                     const scoreElement = document.getElementById("score-value")
@@ -135,7 +136,7 @@
                 <div id="myAbout"><b>About:</b>
                     <p>
                         <b>Log-in:</b> in order to play you need to have a user name and a password. If you do not have one already you can sign up in the sign up page.
-                        <b>Configurations:</b> before the game begins you may choose your preffered shooting key (space ot letter) and the duration of the game (minimum 2 minutes)
+                        <b><br>Configurations:</b> before the game begins you may choose your preffered shooting key (space ot letter) and the duration of the game (minimum 2 minutes)
                         <br><b>Game: </b>the game is simple, you need to shoot the spaceships that appear on the screen. Each target has a different score. You have 3 lives and 2 minutes to play.Be careful not to be shot by the bad spaceships. 
                 </div>
                 <button id="exit-button" onclick="closeDialog()">Close</button>
@@ -178,11 +179,13 @@
                         var sortedScores = bestScores.slice().sort(function(a, b) {
                             return b - a;
                         });
+                        var flag =false
                         // Create a list of score items with position and value
                         var scoreItems = sortedScores.map(function(s, i) {
                             var item = s;
-                            if (s == score) {
+                            if (s === score && flag === false) {
                                 item = s + " (Your Score)";
+                                flag = true
                             }
                             return (i+1) + ". " + item;
                         });
