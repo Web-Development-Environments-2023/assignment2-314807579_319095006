@@ -43,14 +43,7 @@ function closeDialog() {
   }
 
 
-
-function newGame(){
-    then = Date.now();
-    intervalTimer = setInterval(main,30);
-
- }
-
-
+  //this is the main function of the game 
 function main(){
     var now = Date.now();
     var delta = now - then;
@@ -63,9 +56,7 @@ function main(){
     draw_all_bad_shoots();
     bad_shoot_colider();
     good_shoot_colider();
-    
     then=now;
-    
 }
 
 // draws the bad ships 4*5 
@@ -81,33 +72,28 @@ function draw_bad_ships(){
         five_sec =167;
         bullet_speed +=3;
     }
-
     bad_ships.forEach(bad_ship=>{
             if (flag==true){
                 bad_ship.speed += 2;
             }
             if (bad_ship.is_alive == true){
         ctx.drawImage(bad_ship_img,bad_ship.x,bad_ship.y,canvas.width / 20 ,canvas.width / 20)}
-    }
-    )
+    })
     if (dir_right == true){
         if (bad_ships[0].x +bad_ships[0].speed >=(canvas.width - (canvas.width / 20) * 5 ))
         dir_right = false 
     bad_ships.forEach(bad_ship=>{
-      bad_ship.x +=bad_ship.speed ;
-    })
+      bad_ship.x +=bad_ship.speed ;})
     }
     else{
         if (bad_ships[0].x -bad_ships[0].speed <= 0)
             dir_right = true;
         bad_ships.forEach(bad_ship=>{
                 bad_ship.x -=bad_ship.speed ;
-            
     })
-}
-}
+}}
 
-
+//iterate through list of shotos to draw or remove
 function draw_all_shoots(){
     G_shoot_array.forEach(newshoot=>{
         draw_shoot(newshoot,'red')
@@ -119,12 +105,16 @@ function draw_all_shoots(){
         }
     });
 }
+
+//draw shooting of the spaceship
 function draw_shoot(newshoot,color){
     ctx.fillStyle = color;
     ctx.beginPath();
     ctx.arc(newshoot.x, newshoot.y, canvas.width/160, 0, 2 * Math.PI);
     ctx.fill();
 }
+
+//bad ships shooting
 function draw_bad_shoot(){
     if (B_shoot_array.length ==0 || B_shoot_array[B_shoot_array.length -1].y >= canvas.height * 0.75) { 
         bad = bad_ships[Math.floor(Math.random()*20)]
@@ -137,6 +127,8 @@ function draw_bad_shoot(){
     }
     }
 }
+
+//drawing the shooting of the bad ships
 function draw_all_bad_shoots(){
     B_shoot_array.forEach(bad_shoot=>{
         draw_shoot(bad_shoot,'yellow')
@@ -149,12 +141,13 @@ function draw_all_bad_shoots(){
     });
 }
 
-
+//draw image of background and spaceship
 function draw(){
     ctx.drawImage(background,0,0,canvas.width,canvas.height);
     ctx.drawImage(spaceship_img,spaceship.x,spaceship.y,canvas.width / 20 ,canvas.width / 20)  
 }
 
+//check for collision of the bad shoots with the spaceship
 function bad_shoot_colider(){
     B_shoot_array.forEach((bad_shoot,index)=>{
         if(bad_shoot.x >= spaceship.x + 0.2 * canvas.width / 20 && 
@@ -173,6 +166,8 @@ function bad_shoot_colider(){
 
     })
 }
+
+//check for collision of the good shoots with the bad ships
 function good_shoot_colider(){
     G_shoot_array.forEach((good_shot,index)=>{
         bad_ships.forEach(bad_ship=>{
@@ -189,13 +184,12 @@ function good_shoot_colider(){
                         score += (4 - bad_ship.row) *5;
                         updateScore();
                         
-                    }
-            }
-        })
-    })
-}
-var prevW;
-var prevH;
+                    }}
+                })
+            })
+        }
+
+ //resizing the canvas in a way that it will fit the screen       
 function resize_cancas(){
     screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth || canvas.parentElement.clientWidth;
     screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight || canvas.parentElement.clientHeight;
@@ -203,7 +197,6 @@ function resize_cancas(){
     canvas.height = screenHeight* 0.7;
     spaceship.x = canvas.width /2
     spaceship.y = canvas.height - 100
-    
     x_pos = 0
     y_pos =0
     for (var i =0; i<5; i++){
@@ -219,18 +212,19 @@ function resize_cancas(){
         bad_ships[i*4 +j].x = x_pos + canvas.width / 20 
         x_pos += canvas.width / 20 
     }
-    prevW = canvas.width
-    prevH = canvas.height
-    
 }
 
-
+//lisening to resizing 
 window.addEventListener('resize',resize_cancas)
+
+//all actions for new game to start 
 function startgame(){
+
     clearInterval(intervalTimer)
     good_hit = new Audio("audio/good_hit.wav")
     bad_hit = new Audio("audio/bad_hit.wav")
     shoot_sound = new Audio("audio/shoot.wav")
+
     //initilize all the variables
     G_shoot_array = [];
     B_shoot_array = [];
@@ -257,8 +251,7 @@ function startgame(){
     screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight ||canvas.parentElement.clientHeight;;
     canvas.width = screenWidth * 0.7;
     canvas.height = screenHeight *0.7;
-    prevW = canvas.width
-    prevH = canvas.height
+  
 
     //backgruond
     background = new Image();
@@ -276,7 +269,6 @@ function startgame(){
     spaceship.onload = function(){
         ctx.drawImage(spaceship_img,spaceship.x,spaceship.y,(canvas.width / 20),(canvas.width / 20)) 
     }
-    //shoot of good spaceShip
    
 
     //bad ships:
@@ -296,25 +288,21 @@ function startgame(){
         }
         y_pos = 0;
         x_pos += canvas.width / 20 ;
-        
     }
 
+    //listerner for shooting 
     keysDown = {};
-	// Check for keys pressed where key represents the keycode captured
-    // if(canvas.style.display === 'block'){
-    //     addEventListener("keydown", function (e) {keysDown[e.keyCode] = true; e.preventDefault() }, false);
-    //     addEventListener("keyup", function (e) {delete keysDown[e.keyCode];}, false);
-    // }
     addEventListener("keydown", key_down, false);
     addEventListener("keyup", key_up, false);
 
+
     then = Date.now();
-    //document.getElementById("canvasDiv").dispatchEvent(new Event('click'))
     intervalTimer = setInterval(main,30);
     timer();
     updateLives()
     updateScore()
 }
+
 
 
 function key_down(e){
@@ -327,6 +315,7 @@ function key_up(e){
 }
 
 
+//update shoot position
 function update_Shoot_Position(modifier){
     interval_counter++;
     key = shootKey.toUpperCase().charCodeAt(0)
@@ -345,6 +334,8 @@ function update_Shoot_Position(modifier){
         }
     }
 }
+
+//update spaceship position
 function update_spaceship_Position(modifier){
     if ((38 in keysDown) ){// player holding up
         if(spaceship.y >= canvas.height - 0.4 * canvas.height)
@@ -365,6 +356,8 @@ function update_spaceship_Position(modifier){
     
 }
 
+
+//check sign up form
 function check(event){
     event.preventDefault();
     var pass =  document.forms["myForm"]["password"].value;
@@ -376,14 +369,9 @@ function check(event){
         alert("Passwords do not match");
         return false;
     }
-    if (!/[a-z]/.test(pass)) {
-        alert("Password must contain at least one lowercase letter.");
-        return false;
-    }
-    if (!/[A-Z]/.test(pass)) {
-        alert("Password must contain at least one uppercase letter.");
-        return false;
-    }
+    if (!/[a-zA-Z]/.test(pass)) {
+        alert("Password must contain at least one letter.");
+        return false;}
     if (!/[0-9]/.test(pass)) {
         alert("Password must contain at least one digit.");
         return false;
@@ -411,8 +399,9 @@ function check(event){
     document.getElementById("welcome_page").style.display="block";
     document.getElementById("sign_up_page").style.display="none";
     return true;
-
 }
+
+//from welcome page to login page 
 function login(){
     if(music.currentTime > 0){
         music.pause();
@@ -433,6 +422,8 @@ function login(){
 
 
 }
+
+//from welcome page to sign up page 
 function signup(){
     if(music.currentTime > 0){
         music.pause();
@@ -449,9 +440,10 @@ function signup(){
     document.getElementById("sign_up_page").style.display = "block";
     document.getElementById("about").style.display = "none";
     document.getElementById("configuration").style.display = "none";
-
-//
 }
+
+
+//to welcome page 
 function welcome(){
     if(music.currentTime > 0){
         music.pause();
@@ -472,30 +464,26 @@ function welcome(){
 }
     
 
-
+//open about dialog 
 function about(){
-    
     document.getElementById("about").style.display = "block";
     document.addEventListener("mouseup", function(event) {
         var dialog = document.getElementById("about")
         // Check if the clicked element is outside of the dialog frame
-                if (event.target != dialog && event.target.parentNode != dialog ) {
+            if (event.target != dialog && event.target.parentNode != dialog ) {
             // Close the dialog if it is open
-                    closeDialog();
-                }   
+                closeDialog();
+            }   
             });
-
     document.addEventListener("keydown", function(event) {
         if (event.key === "Escape") {
             closeDialog();
         }
         });
-                    
-
-
 }  
 
 
+//input from configuration page
 function config(event)
 {
     event.preventDefault();
@@ -503,7 +491,6 @@ function config(event)
 
     if (shootKey === " ")
     {
-        // display in the input box the word space
         shootKey = " ";
         document.getElementById("shootKeyInput").value= event.key;
     }
@@ -516,11 +503,10 @@ function config(event)
     {
         alert("Please enter a letter or the space-bar");
     }
-    
-    //
 }
 
 
+//from configuration page to game page
 function game_after_config(event){
     event.preventDefault();
     gameLength=parseInt(document.getElementById("gameLengthInput").value);
@@ -529,16 +515,19 @@ function game_after_config(event){
     document.getElementById("game_page").style.display="block";
     document.getElementById("theCanvas").style.display="block";
     document.getElementById("configuration").style.display="none";
-    
     startgame();
 }
+
+
+//timer for game
 function timer(){
     startTime = Date.now(); // get the current time when the game starts
     timerElement = document.getElementById("timer");
-
     intrval_id = setInterval(updateTimer,1000) 
     updateTimer();
 }
+
+//updating timer
 function updateTimer(){
     elapsedTime =  (gameLength * 60 * 1000) -(Date.now() - startTime) ; // calculate the elapsed time
     seconds = Math.floor(elapsedTime / 1000) ; // convert to seconds
@@ -548,9 +537,7 @@ function updateTimer(){
     if( seconds === 0){
         best_scores.push(score)
         showScores();
-        startgame();
-
-    }
+        startgame();}
     }; // update the timer every second
 
 

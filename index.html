@@ -23,19 +23,14 @@
                     <li onclick="signup()">Sign up</li>
                 </ul>
             </nav>
-            <script>
-                
-            </script>
         </div>
         <content> 
             <div id="welcome_page" ALIGN="center">
                 <h1>Welcome to Chicken Invaders!</h1>
                 <h4 style="align-items: center;">Or Fuchs 319095006, Amit Vitkovsky 314807579</h4>
-                <!-- <br><br><br><br><br><br><br><br><br><br> -->
                 <button id="Login " onclick=login() >Login</button>
                 <button id="sign up" onclick="signup()">Sign Up</button>
             </div>
-
             <div id="login page" style="display: none;" ALIGN="center" >
                 <div id="login_square">
                     <h1>Login</h1>
@@ -71,7 +66,6 @@
                     }
                 </script>
             </div>
-
             <div id="sign_up_page" style="display:none;" ALIGN="center">
                 <div id= "sign_up_square" ALIGN="left">
                 <h1>Sign Up</h1>
@@ -94,69 +88,67 @@
                 </form>
                 </div>
                </div>
-
             <div id="game_page" style="display: none; " ALIGN="center">
                 <div id="around_game" style="position: absolute;" ALIGN="center">
                     <h4>
-                    <div id="timer" style="color:black; background-color: white; margin: 1%;"></div><br><br>
-                    <div id="score-value" style="color:black;background-color: white; margin: 1%"></div><br><br>
-                    <div id="lives-value" style="color:black; background-color: white; margin: 1%"></div><br><br>
-                </h4>
+                        <div id="timer" style="color:black; background-color: white; margin: 1%;"></div><br><br>
+                        <div id="score-value" style="color:black;background-color: white; margin: 1%"></div><br><br>
+                        <div id="lives-value" style="color:black; background-color: white; margin: 1%"></div><br><br>
+                    </h4>
                     <button id="newGame"onclick="startByButton()" >new Game </button>
                 </div>
                 <canvas id = "theCanvas"  ALIGN="center" > </canvas> 
-
-                    <script>
-                        function startByButton(){
-                            document.getElementById("game_page").style.display="none";
-                            document.getElementById("theCanvas").style.display="none";
-                            document.getElementById("game_page").style.display="block";
-                            document.getElementById("theCanvas").style.display="block";
-                            startgame()
-                            }
-                        const scoreElement = document.getElementById("score-value")
-                        function updateScore(){
-                            var points = score
-                            scoreElement.innerHTML = "Score:\n" + points;
-                            if (score === 250) {
-                                best_scores.push(score)
-                                showScores()  
-                                // startgame()
-                                
-                            }
+                <script>
+                    function startByButton(){
+                        document.getElementById("game_page").style.display="none";
+                        document.getElementById("theCanvas").style.display="none";
+                        document.getElementById("game_page").style.display="block";
+                        document.getElementById("theCanvas").style.display="block";
+                        startgame()
                         }
-                        updateScore();
-                        const lives_element = document.getElementById("lives-value")
-                        function updateLives(){
-                            var Lnum = lives
-                            lives_element.innerHTML = "Lives remaining:\n" + Lnum;
-                            if (lives === 0){
-                                
-                                best_scores.push(score) 
-                                showScores()                               
-                            }
+                    const scoreElement = document.getElementById("score-value")
+                    function updateScore(){
+                        var points = score
+                        scoreElement.innerHTML = "Score:\n" + points;
+                        if (score === 250) {
+                            best_scores.push(score)
+                            showScores()  
+                            // startgame()
+                            
                         }
-                        updateLives();
-                    </script>
+                    }
+                    updateScore();
+                    const lives_element = document.getElementById("lives-value")
+                    function updateLives(){
+                        var Lnum = lives
+                        lives_element.innerHTML = "Lives remaining:\n" + Lnum;
+                        if (lives === 0){
+                            
+                            best_scores.push(score) 
+                            showScores()                               
+                        }
+                    }
+                    updateLives();
+                </script>
             </div>
-
             <dialog id="about">
-                <div id="myAbout">About:</div>
+                <div id="myAbout"><b>About:</b>
+                    <p>
+                        <b>Log-in:</b> in order to play you need to have a user name and a password. If you do not have one already you can sign up in the sign up page.
+                        <b>Configurations:</b> before the game begins you may choose your preffered shooting key (space ot letter) and the duration of the game (minimum 2 minutes)
+                        <br><b>Game: </b>the game is simple, you need to shoot the spaceships that appear on the screen. Each target has a different score. You have 3 lives and 2 minutes to play.Be careful not to be shot by the bad spaceships. 
+                </div>
                 <button id="exit-button" onclick="closeDialog()">Close</button>
             </dialog>
-
             <dialog id="scoreTable">
-                
                 <div id ="scoreTable-value"> </div>
                 <script>
                     function closeScoreDialog(){
-                        
                         document.getElementById("scoreTable").style.display ="none";
                         startgame()
                     }
                     scoreTableElement =document.getElementById("scoreTable-value")
                     function showScores() {
-                        
                         if (lives === 0){
                             scoreTableElement.innerHTML = ("You Lost<br><br>")
                         }
@@ -171,15 +163,21 @@
                                 scoreTableElement.innerHTML = ("You can do better<br><br>")
                             }
                         }
+                        scoreTableElement.style.accentColor = "red";
+                        scoreTableElement.style.animation= "blinker 1s linear infinite";
+                        scoreTableElement.style.color = "black";
+                        scoreTableElement.style.fontSize = "small";
+                        scoreTableElement.style.fontWeight = "bold";
+                        scoreTableElement.style.fontFamily = "Arial";
+                        scoreTableElement.style.textAlign = "center";
+                        scoreTableElement.style.textShadow = "2px 2px 8px #FF0000";
                         // Get the best scores list and the player's last score
                         var bestScores = best_scores;
                         var new_score = score;
-                        
                         // Sort the scores in descending order
                         var sortedScores = bestScores.slice().sort(function(a, b) {
                             return b - a;
                         });
-                        
                         // Create a list of score items with position and value
                         var scoreItems = sortedScores.map(function(s, i) {
                             var item = s;
@@ -190,19 +188,12 @@
                         });
                         scoreTableElement.innerHTML +=("Player Scores:<br>" + scoreItems.join("<br>"));
                         document.getElementById("scoreTable").style.display ='block'
-                        
                         clearInterval(intervalTimer)
                         clearInterval(intrval_id)    
                     }
-         
-
-                    
                 </script>
                 <div><button id="exit-button" onclick="closeScoreDialog()"> Start </button></div>
-                
             </dialog>
-
-
             <div id="configuration" style="display: none;" ALIGN="center">
                 <h1>Configurations</h1>
                 <form name="config" onsubmit="return  game_after_config(event)">
@@ -216,10 +207,8 @@
                     <input type="submit" value="Start Game" >    
             </div>
         </content>
-
         <footer>
-            <h5>Created by: Amit Vitkovsky, Or Fuchs</h5>
+            <h5>Created by: Amit Vitkovsky (amitwitk@post.bgu.ac.il) and Or Fuchs (orfuc@post.bgu.il)</h5>
         </footer>
-
 	</body>
 </html>

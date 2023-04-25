@@ -32,7 +32,6 @@ div#welcome_page h1{
 
 button
 {
-    /* align-items: center; */
     text-align: center;
     font-size: 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -49,10 +48,6 @@ label {
 }
 
 
-
-
-
-
 h4 {
     text-align: center;
     color: #f8f3f3;
@@ -67,15 +62,6 @@ div#around_game{
   position: absolute;
   align-items: left;
     
-}
-
-div#scoreTable-value{
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  text-emphasis: bold;
-  color: black;
-  font-size: 20px;
-  font-weight: bold;
-
 }
 
 
@@ -117,17 +103,6 @@ input[type=text]:focus {
 }
 
 
-/*items should be in the center*/
-/* div#sign_up_page{
-  margin-top: 6%; 
-  margin-bottom: 10%; 
-  width:50%;
-  height: 3%;;
-  position: absolute;
-} */
-
-
-
 div#sign_up_square{
   border: #000;
   border-radius: 10px;
@@ -159,12 +134,11 @@ canvas#theCanvas {
 
 
  
-
 div#game_page{
   width: 100%;
   height: 100%;
   position: absolute;
-  margin: 0 auto; /* Center content */
+  margin: 0 auto; 
   top: 10%;
   left: 0;
   bottom: 0;
@@ -172,11 +146,11 @@ div#game_page{
 
 
 footer {
-    padding: 0.5%; /* spacing inside the footer */
-    text-align: center; /* center align the content in the footer */
-    position: fixed; /* make the footer stay at the bottom of the viewport */
-    bottom: 0; /* position the footer at the bottom of the viewport */
-    width: 100%; /* make the footer span the entire width of the viewport */
+    padding: 0.5%; 
+    text-align: center; 
+    position: fixed; 
+    bottom: 0; 
+    width: 100%; 
     height: 4%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-top: 1px solid #ccc;
@@ -228,12 +202,12 @@ li:hover{
 
 
   body {
-    padding-top: 10%; /* add 60px padding to the top of the body */
+    padding-top: 10%; 
     background-image: url('images/2cf9d601258a2fa7994064dc6b9c3f0f.jpeg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    margin: 0 auto; /* Center content */
+    margin: 0 auto; 
     overflow: hidden;
 
   }
@@ -284,33 +258,9 @@ li:hover{
     background-color: #e4f6e8;
   }
 
-
-  /* #timer {
-    font-size: 15px;
-    color: rgb(12, 12, 12);
-    text-align: center;
-    width: 100%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-} */
-
-/* #score-value {
-  font-size: 15px;
-  color: rgb(17, 17, 17);
-  text-align: center;
-  width: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-} */
+  #exit-button:hover {
+    color: #ccc;
+  }
 
 
-/* #lives-value {
-  font-size: 15pdsdv  x;
-  color: rgb(17, 17, 17);
-  text-align : center;
-  width: 100% ;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  text-emphasis: bold;
-} */
-
-/* canvasDiv class should be columns  */
 
