@@ -63,8 +63,15 @@ function main(){
 function draw_bad_ships(){
     
     five_sec--;
-    bad_ship_img = new Image();
-    bad_ship_img.src = "images/bad.jpg"
+    bad_ship_img1 = new Image();
+    bad_ship_img1.src = "images/bad.jpg"
+    bad_ship_img2 = new Image();
+    bad_ship_img3 = new Image();
+    bad_ship_img4 = new Image();
+    bad_ship_img2.src = "images/bad2.webp"
+    bad_ship_img3.src = "images/bad3.webp"
+    bad_ship_img4.src = "images/bad4.webp"
+
     flag = false
     if(five_sec == 0 && accel_count<4){
         flag = true;
@@ -72,12 +79,27 @@ function draw_bad_ships(){
         five_sec =167;
         bullet_speed +=3;
     }
+    counter = 0
     bad_ships.forEach(bad_ship=>{
             if (flag==true){
                 bad_ship.speed += 2;
             }
             if (bad_ship.is_alive == true){
-        ctx.drawImage(bad_ship_img,bad_ship.x,bad_ship.y,canvas.width / 20 ,canvas.width / 20)}
+                if (counter % 4 ==0 ){
+                    ctx.drawImage(bad_ship_img4,bad_ship.x,bad_ship.y,canvas.width / 20 ,canvas.width / 20)
+                }
+                if (counter % 4 ==1 ){
+                    ctx.drawImage(bad_ship_img3,bad_ship.x,bad_ship.y,canvas.width / 20 ,canvas.width / 20)
+                }
+                if (counter % 4 ==2 ){
+                    ctx.drawImage(bad_ship_img2,bad_ship.x,bad_ship.y,canvas.width / 20 ,canvas.width / 20)
+                }
+                if (counter % 4 ==3 ){
+                    ctx.drawImage(bad_ship_img1,bad_ship.x,bad_ship.y,canvas.width / 20 ,canvas.width / 20)
+                }
+                
+            }
+            counter ++;
     })
     if (dir_right == true){
         if (bad_ships[0].x +bad_ships[0].speed >=(canvas.width - (canvas.width / 20) * 5 ))
