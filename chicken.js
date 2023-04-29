@@ -542,6 +542,7 @@ function game_after_config(event){
     document.getElementById("configuration").style.display="none";
     startgame();
 }
+  
 
 
 //timer for game
