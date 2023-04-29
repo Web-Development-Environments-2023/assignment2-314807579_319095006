@@ -99,7 +99,7 @@ function draw_bad_ships(){
                 }
                 
             }
-            counter ++;W
+            counter ++;
     })
     if (dir_right == true){
         if (bad_ships[0].x +bad_ships[0].speed >=(canvas.width - (canvas.width / 20) * 5 ))
@@ -562,7 +562,7 @@ function updateTimer(){
     if( seconds === 0){
         best_scores.push(score)
         showScores();
-        startgame();}
+        }
     }; // update the timer every second
 
 
