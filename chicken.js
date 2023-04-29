@@ -99,7 +99,7 @@ function draw_bad_ships(){
                 }
                 
             }
-            counter ++;
+            counter ++;W
     })
     if (dir_right == true){
         if (bad_ships[0].x +bad_ships[0].speed >=(canvas.width - (canvas.width / 20) * 5 ))
@@ -495,7 +495,7 @@ function about(){
     document.addEventListener("mouseup", function(event) {
         var dialog = document.getElementById("about")
         // Check if the clicked element is outside of the dialog frame
-            if (event.target != dialog && event.target.parentNode != dialog ) {
+            if (event.target != dialog && event.target.parentNode != dialog &&  event.target !=this.getElementById("aboutText") && event.target !=this.getElementById( "myAbout"))  {
             // Close the dialog if it is open
                 closeDialog();
             }   

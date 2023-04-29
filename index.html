@@ -104,7 +104,7 @@
                         document.getElementById("theCanvas").style.display="none";
                         document.getElementById("game_page").style.display="block";
                         document.getElementById("theCanvas").style.display="block";
-                        
+
                         startgame()
                         }
                     const scoreElement = document.getElementById("score-value")
@@ -133,11 +133,12 @@
                 </script>
             </div>
             <dialog id="about">
-                <div id="myAbout"><b>About:</b>
-                    <p>
-                        <b>Log-in:</b> in order to play you need to have a user name and a password. If you do not have one already you can sign up in the sign up page.
-                        <b><br>Configurations:</b> before the game begins you may choose your preffered shooting key (space ot letter) and the duration of the game (minimum 2 minutes)
-                        <br><b>Game: </b>the game is simple, you need to shoot the spaceships that appear on the screen. Each target has a different score. You have 3 lives and 2 minutes to play.Be careful not to be shot by the bad spaceships. 
+                <div id="myAbout">
+                    <p id="aboutText">
+                        About:<br><br>
+                        Log-in:<br>in order to play you need to have a user name and a password. If you do not have one already you can sign up in the sign up page.
+                        <br>Configurations: <br>before the game begins you may choose your preffered shooting key (space ot letter) and the duration of the game (minimum 2 minutes)
+                        <br>Game: <br>the game is simple, you need to shoot the spaceships that appear on the screen. Each target has a different score. You have 3 lives and 2 minutes to play.Be careful not to be shot by the bad spaceships. 
                 </div>
                 <button id="exit-button" onclick="closeDialog()">Close</button>
             </dialog>
